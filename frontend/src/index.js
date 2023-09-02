@@ -9,8 +9,9 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import "./assets/styles/index.css";
+import "./assets/styles/index.css";
 
-// import "./assets/styles/index.css";
 // import "./assets/styles/bootstrap.custom.css";
 
 const router = createBrowserRouter(
