@@ -11,13 +11,14 @@ import {
 } from "react-router-dom";
 import "./assets/styles/index.css";
 import "./assets/styles/index.css";
-
+import ProductScreen from "./screens/ProductScreen";
 // import "./assets/styles/bootstrap.custom.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />} />
+      <Route path="/product/:id" element={<ProductScreen />} />
     </Route>
   )
 );
