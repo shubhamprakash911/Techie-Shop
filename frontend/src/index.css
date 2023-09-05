@@ -51,7 +51,7 @@ table th {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
 }
-/* 
-.logo {
-  width: 20%;
-} */
+
+a {
+  color: black;
+}
