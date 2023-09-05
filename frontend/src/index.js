@@ -11,8 +11,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import "./assets/styles/index.css";
-import "./assets/styles/index.css";
+import "./index.css";
 import ProductScreen from "./screens/ProductScreen";
 // import "./assets/styles/bootstrap.custom.css";
 
