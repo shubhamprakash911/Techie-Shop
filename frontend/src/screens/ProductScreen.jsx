@@ -11,7 +11,7 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
-import { useGetProductDetailsQuery } from "../slices/productSlice";
+import { useGetProductDetailsQuery } from "../slices/productApiSlice";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
