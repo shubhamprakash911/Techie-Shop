@@ -1,5 +1,5 @@
 import asyncHandler from "../middleware/asyncHandler.js";
-import userModel from "../models/userModel.js";
+import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
 
 // @desc    Login user & get token
@@ -8,7 +8,7 @@ import generateToken from "../utils/generateToken.js";
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await userModel.findOne({ email });
+  const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
@@ -31,14 +31,14 @@ const loginUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
-  const userExist = await userModel.findOne({ email });
+  const userExist = await User.findOne({ email });
 
   if (userExist) {
     res.status(400);
     throw new Error("User already exists");
   }
 
-  const user = await userModel.create({ name, email, password });
+  const user = await User.create({ name, email, password });
 
   if (user) {
     generateToken(res, user._id);
@@ -68,9 +68,7 @@ const logoutUser = (req, res) => {
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
-const getUserProfile = asyncHandler(async (req, res) => {
-  res.send("get user profile");
-});
+const getUserProfile = asyncHandler(async (req, res) => {});
 
 // @desc    Update user profile
 // @route   PUT /api/users/profile
