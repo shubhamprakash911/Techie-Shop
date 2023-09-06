@@ -13,7 +13,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
 
-    res.json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
