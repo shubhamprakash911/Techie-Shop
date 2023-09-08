@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import HomeScreen from "./screens/HomeScreen";
 import { Provider } from "react-redux";
 import store from "./store";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import {
   Route,
   RouterProvider,
@@ -46,7 +47,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PayPalScriptProvider>
+        <RouterProvider router={router} />
+      </PayPalScriptProvider>
     </Provider>
   </React.StrictMode>
 );
