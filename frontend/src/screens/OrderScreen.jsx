@@ -1,13 +1,14 @@
 import { Link, useParams } from "react-router-dom";
-import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import {
+  useDeliverOrderMutation,
   useGetOrderDetailsQuery,
   useGetPaypalclientIdQuery,
   usePayOrderMutation,
 } from "../slices/orderApiSlice";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -24,7 +25,10 @@ const OrderScreen = () => {
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
 
-  //   const { userInfo } = useSelector((state) => state.auth);
+  const [deliverOrder, { isLoading: loadingDeliver }] =
+    useDeliverOrderMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -82,6 +86,11 @@ const OrderScreen = () => {
       .then((orderID) => {
         return orderID;
       });
+  }
+
+  async function deliverHandler() {
+    await deliverOrder(orderId);
+    refetch();
   }
 
   return isLoading ? (
@@ -212,7 +221,23 @@ const OrderScreen = () => {
                   )}
                 </ListGroup.Item>
               )}
-              {/* {MARK AS DELIVERED PLACEHOLDER} */}
+
+              {loadingDeliver && <Loader />}
+
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <ListGroup.Item>
+                    <Button
+                      type="button"
+                      className="btn btn-block"
+                      onClick={deliverHandler}
+                    >
+                      Mark As Delivered
+                    </Button>
+                  </ListGroup.Item>
+                )}
             </ListGroup>
           </Card>
         </Col>
