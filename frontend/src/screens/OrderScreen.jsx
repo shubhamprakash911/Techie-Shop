@@ -7,7 +7,7 @@ import {
   useGetOrderDetailsQuery,
   useGetPaypalclientIdQuery,
   usePayOrderMutation,
-} from "../slices/orderApiSlice";
+} from "../slices/ordersApiSlice";
 import { useSelector } from "react-redux";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect } from "react";
