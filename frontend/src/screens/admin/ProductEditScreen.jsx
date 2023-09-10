@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import {
   useGetProductDetailsQuery,
   useUpdateProductMutation,
+  useUploadProductImageMutation,
 } from "../../slices/productsApiSlice";
 
 const ProductEditScreen = () => {
@@ -32,7 +33,7 @@ const ProductEditScreen = () => {
     useUpdateProductMutation();
 
   const [uploadProductImage, { isLoading: loadingUpload }] =
-    useUpdateProductMutation();
+    useUploadProductImageMutation();
 
   const navigate = useNavigate();
 
