@@ -6,11 +6,13 @@ import {
   deleteProduct,
   getProductById,
   getProducts,
+  getTopProducts,
   updateProduct,
 } from "../controllers/productController.js";
 import { admin, authenticate } from "../middleware/authMiddleware.js";
 
 productRouter.get("/", getProducts);
+productRouter.get("/top", getTopProducts);
 productRouter.post("/", authenticate, admin, createProduct);
 
 productRouter.get("/:id", getProductById);
