@@ -6,6 +6,7 @@ import logo from "../TechieShop.png";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -39,11 +40,12 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+              <SearchBox />
               <LinkContainer to="/Cart">
                 <Nav.Link>
                   <FaShoppingCart /> Cart
                   {cartItems.length > 0 && (
-                    <Badge pill bg="success" style={{ marginLeft: "5px" }}>
+                    <Badge pill style={{ marginLeft: "5px" }}>
                       {cartItems.reduce((a, c) => a + c.qty, 0)}
                     </Badge>
                   )}
