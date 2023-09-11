@@ -63,7 +63,7 @@ const ProductListScreen = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant="danger">{error.data.messaage}</Message>
       ) : (
         <>
           <Table striped bordered hover responsive className="table-sm">
@@ -82,7 +82,7 @@ const ProductListScreen = () => {
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>${product.price}</td>
+                  <td>₹{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
