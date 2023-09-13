@@ -35,3 +35,7 @@ Password:- W!3r_5pI
 
 # Live Version
 https://techieshop-35ue.onrender.com/
+
+## Upcoming feature
+- I will also use Google OAuth to authenticate user.
+- Will utilize the NodeMailer library or another third-party messaging service provider to verify the legitimacy of an email address.
