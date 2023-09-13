@@ -30,8 +30,8 @@ This is an e-commerce web application built using the MERN (MongoDB, Express, Re
 - JSON Web Tokens
 
 ## To make Paypal payment use below credentials
-Email:- sb-keuds26652511@personal.example.com
-Password:- W!3r_5pI
+- Email:- sb-keuds26652511@personal.example.com
+- Password:- W!3r_5pI
 
 # Live Version
 https://techieshop-35ue.onrender.com/
