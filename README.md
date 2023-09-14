@@ -35,6 +35,7 @@ This is an e-commerce web application built using the MERN (MongoDB, Express, Re
 
 # Live Version
 https://techieshop-35ue.onrender.com/
+- Free hosting from Render is a little slow, so please be patient while waiting for the website to load.
 
 ## Upcoming feature
 - I will also use Google OAuth to authenticate user.
