@@ -9,11 +9,13 @@ import {
   getUserById,
   updateUser,
   logoutUser,
+  refreshAccessToken,
 } from "../controllers/userController.js";
 import { admin, authenticate } from "../middleware/authMiddleware.js";
 
 const userRouter = express.Router();
 
+userRouter.get("/refresh", refreshAccessToken);
 userRouter.get("/", authenticate, admin, getUsers);
 userRouter.post("/logout", logoutUser);
 userRouter.post("/register", registerUser);
