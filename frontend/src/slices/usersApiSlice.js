@@ -64,12 +64,6 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
-
-    refreshAccessToken: builder.query({
-      query: () => ({
-        url: `${USERS_URL}/refresh`,
-      }),
-    }),
   }),
 });
 

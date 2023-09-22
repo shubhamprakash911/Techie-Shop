@@ -4,14 +4,18 @@ import sendToken from "./sendToken.js";
 const generateToken = (res, userId, option) => {
   if (option === "access") {
     const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
-      expiresIn: "1m",
+      expiresIn: "1d",
     });
-    sendToken(res, 1, option, token);
+
+    const maxAgeInMillisecond = 1000 * 60 * 60 * 24;
+    24 * sendToken(res, maxAgeInMillisecond, option, token);
   } else if (option === "refresh") {
     const token = jwt.sign({ userId }, process.env.JWT_REFRESH_SECRET, {
-      expiresIn: "3m",
+      expiresIn: "7d",
     });
-    sendToken(res, 3, option, token);
+
+    const maxAgeInMillisecond = 1000 * 60 * 60 * 24 * 7;
+    sendToken(res, maxAgeInMillisecond, option, token);
   }
 };
 

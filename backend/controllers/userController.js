@@ -189,10 +189,8 @@ const updateUser = asyncHandler(async (req, res) => {
 // @access  Public
 const refreshAccessToken = asyncHandler((req, res) => {
   const { refreshToken } = req.cookies;
-  console.log(refreshToken);
   jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (error, decoded) => {
     if (decoded && decoded.userId) {
-      console.log(decoded.userId);
       generateToken(res, decoded.userId, "access");
     } else {
       throw new Error(
@@ -200,7 +198,9 @@ const refreshAccessToken = asyncHandler((req, res) => {
       );
     }
   });
-  res.status(200).json({ message: "token refresh successfully" });
+  res
+    .status(200)
+    .json({ message: "token refresh successfully", success: true });
 });
 
 export {
