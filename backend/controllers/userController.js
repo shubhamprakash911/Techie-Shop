@@ -1,6 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
+import jwt from "jsonwebtoken";
 
 // @desc    Login user & get token
 // @route   POST /api/users/login
@@ -11,7 +12,8 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
-    generateToken(res, user._id);
+    generateToken(res, user._id, "access");
+    generateToken(res, user._id, "refresh");
 
     res.status(200).json({
       _id: user._id,
@@ -41,7 +43,8 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({ name, email, password });
 
   if (user) {
-    generateToken(res, user._id);
+    generateToken(res, user._id, "access");
+    generateToken(res, user._id, "refresh");
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -58,7 +61,11 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/logout
 // @access  Public
 const logoutUser = (req, res) => {
-  res.cookie("jwt", "", {
+  res.cookie("accessToken", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.cookie("refreshToken", "", {
     httpOnly: true,
     expires: new Date(0),
   });
@@ -177,6 +184,25 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    refresh access token
+// @route   GET /api/users/refresh
+// @access  Public
+const refreshAccessToken = asyncHandler((req, res) => {
+  const { refreshToken } = req.cookies;
+  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (error, decoded) => {
+    if (decoded && decoded.userId) {
+      generateToken(res, decoded.userId, "access");
+    } else {
+      throw new Error(
+        error?.message || "something went while refreshing access token"
+      );
+    }
+  });
+  res
+    .status(200)
+    .json({ message: "token refresh successfully", success: true });
+});
+
 export {
   logoutUser,
   loginUser,
@@ -187,4 +213,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  refreshAccessToken,
 };
