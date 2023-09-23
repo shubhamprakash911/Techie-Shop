@@ -1,5 +1,6 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
+import { generatePassword } from "../utils/generatePassword.js";
 import generateToken from "../utils/generateToken.js";
 import jwt from "jsonwebtoken";
 
@@ -203,6 +204,23 @@ const refreshAccessToken = asyncHandler((req, res) => {
     .json({ message: "token refresh successfully", success: true });
 });
 
+// @desc    forget password
+// @route   PUT /api/users/forgetPassword
+// @access  Public
+const forgetPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne(email);
+  console.log(user);
+
+  if (user) {
+    const password = generatePassword(8);
+    console.log(password, "password");
+    user.password = password;
+    await user.save();
+    res.status(200).json({ message: "password updated successfully", pass });
+  }
+});
+
 export {
   logoutUser,
   loginUser,
@@ -214,4 +232,5 @@ export {
   getUserById,
   updateUser,
   refreshAccessToken,
+  forgetPassword,
 };
