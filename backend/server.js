@@ -22,7 +22,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
-
+// paypal configuration route
 app.get("/api/config/paypal", (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
@@ -43,7 +43,9 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+// middleware to act as fallback for all 404 errors
 app.use(notFound);
+// custom error handler middleware
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 8000;

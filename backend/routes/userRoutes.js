@@ -9,6 +9,8 @@ import {
   getUserById,
   updateUser,
   logoutUser,
+  refreshAccessToken,
+  forgetPassword,
 } from "../controllers/userController.js";
 import { admin, authenticate } from "../middleware/authMiddleware.js";
 
@@ -18,6 +20,8 @@ userRouter.get("/", authenticate, admin, getUsers);
 userRouter.post("/logout", logoutUser);
 userRouter.post("/register", registerUser);
 userRouter.post("/login", loginUser);
+userRouter.get("/refresh", refreshAccessToken);
+userRouter.put("/forgotPassword", forgetPassword);
 userRouter
   .route("/profile")
   .get(authenticate, getUserProfile)
