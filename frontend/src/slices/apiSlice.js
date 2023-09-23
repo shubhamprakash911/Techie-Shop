@@ -4,6 +4,7 @@ import { logout } from "./authSlice";
 
 const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL });
 
+// this will run for every request we made to server and check token is expiry if token is expired then it will made request for new access token and then made original request
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 401) {

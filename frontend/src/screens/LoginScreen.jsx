@@ -74,7 +74,21 @@ const LoginScreen = () => {
         {isLoading && <Loader />}
       </Form>
 
-      <Row className="py-3">
+      <Row className="py-2">
+        <Col>
+          <Link
+            to={
+              redirect
+                ? `/forgotPassword?redirect=${redirect}`
+                : "/forgotPassword"
+            }
+          >
+            Forgot Password ?
+          </Link>
+        </Col>
+      </Row>
+
+      <Row>
         <Col>
           New Customer?{" "}
           <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>

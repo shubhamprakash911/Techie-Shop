@@ -1,5 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
+import { sendEmail } from "../utils/SendEmail.js";
+import { generatePassword } from "../utils/generatePassword.js";
 import generateToken from "../utils/generateToken.js";
 import jwt from "jsonwebtoken";
 
@@ -10,6 +12,11 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(401);
+    throw new Error("Email not found, Please register first");
+  }
 
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id, "access");
@@ -203,6 +210,33 @@ const refreshAccessToken = asyncHandler((req, res) => {
     .json({ message: "token refresh successfully", success: true });
 });
 
+// @desc    forget password
+// @route   PUT /api/users/forgetPassword
+// @access  Public
+const forgetPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (user) {
+    try {
+      const password = generatePassword(8);
+      user.password = password;
+      await user.save();
+      await sendEmail(email, user.name, password);
+      res
+        .status(200)
+        .json({ message: "Check your email for new password", success: true });
+    } catch (error) {
+      res.status(400);
+      throw new Error("Something went wrong, Please try again");
+    }
+  } else {
+    res.status(400);
+    throw new Error("Please provide register email address");
+  }
+});
+
 export {
   logoutUser,
   loginUser,
@@ -214,4 +248,5 @@ export {
   getUserById,
   updateUser,
   refreshAccessToken,
+  forgetPassword,
 };

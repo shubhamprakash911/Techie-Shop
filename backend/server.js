@@ -9,7 +9,6 @@ import cookieParser from "cookie-parser";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
-import generateToken from "./utils/generateToken.js";
 
 const app = express();
 
