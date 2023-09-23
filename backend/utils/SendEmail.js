@@ -11,13 +11,13 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-export const sendEmail = async (email, password) => {
+export const sendEmail = async (email, name, password) => {
   // create an email message
   const mailOptions = {
     from: process.env.SMTP_EMAIL,
     to: email,
-    subject: "Forgot Password: Your New Password for Techieshop",
-    text: `This is your new password: ${password} \nPlease used this password to login with TechieShop.com`,
+    subject: "Request for Password Reset",
+    text: `Hi ${name} \n\nYou've recently made a request to reset your password on the Techieshop.com \n\nYour new password is ${password} `,
   };
 
   // send the email message

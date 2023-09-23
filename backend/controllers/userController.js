@@ -223,7 +223,7 @@ const forgetPassword = asyncHandler(async (req, res) => {
       const password = generatePassword(8);
       user.password = password;
       await user.save();
-      await sendEmail(email, password);
+      await sendEmail(email, user.name, password);
       res
         .status(200)
         .json({ message: "Check your email for new password", success: true });
