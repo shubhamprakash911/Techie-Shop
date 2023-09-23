@@ -12,6 +12,11 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
+  if (!user) {
+    res.status(401);
+    throw new Error("Email not found, Please register first");
+  }
+
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id, "access");
     generateToken(res, user._id, "refresh");
@@ -209,7 +214,8 @@ const refreshAccessToken = asyncHandler((req, res) => {
 // @access  Public
 const forgetPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
-  const user = await User.findOne(email);
+
+  const user = await User.findOne({ email });
   console.log(user);
 
   if (user) {
@@ -217,7 +223,12 @@ const forgetPassword = asyncHandler(async (req, res) => {
     console.log(password, "password");
     user.password = password;
     await user.save();
-    res.status(200).json({ message: "password updated successfully", pass });
+    res
+      .status(200)
+      .json({ message: "password updated successfully", success: true });
+  } else {
+    res.status(400);
+    throw new Error("Please provide register email address");
   }
 });
 
