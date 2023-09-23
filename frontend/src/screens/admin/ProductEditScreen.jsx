@@ -82,6 +82,16 @@ const ProductEditScreen = () => {
     }
   };
 
+  const handleCountInStock = (e) => {
+    if (e.target.value < 0) return;
+    setCountInStock(+e.target.value);
+  };
+
+  const handlePrice = (e) => {
+    if (e.target.value < 0) return;
+    setPrice(+e.target.value);
+  };
+
   return (
     <>
       <Link to="/admin/productlist" className="btn btn-light my-3">
@@ -112,7 +122,7 @@ const ProductEditScreen = () => {
                 type="number"
                 placeholder="Enter price"
                 value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={handlePrice}
               ></Form.Control>
             </Form.Group>
 
@@ -148,7 +158,7 @@ const ProductEditScreen = () => {
                 type="number"
                 placeholder="Enter countInStock"
                 value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
+                onChange={handleCountInStock}
               ></Form.Control>
             </Form.Group>
 
