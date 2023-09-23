@@ -14,6 +14,8 @@ This is an e-commerce web application built using the MERN (MongoDB, Express, Re
 - Mark orders as delivered option
 - Checkout process (shipping, payment method, etc)
 - PayPal / credit card integration
+- Get new password to register user's email (Forgot Password Page)
+- Access and Refresh Token (When the access token expires, it will automatically request a new one if the refresh token is still valid.)
 
 # Tech Stack
 
@@ -39,4 +41,3 @@ https://techieshop-35ue.onrender.com/
 
 ## Upcoming feature
 - I will also use Google OAuth to authenticate user.
-- Will utilize the NodeMailer library or another third-party messaging service provider to verify the legitimacy of an email address.
