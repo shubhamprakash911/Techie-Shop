@@ -1,5 +1,6 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
+import { sendEmail } from "../utils/SendEmail.js";
 import { generatePassword } from "../utils/generatePassword.js";
 import generateToken from "../utils/generateToken.js";
 import jwt from "jsonwebtoken";
@@ -216,16 +217,20 @@ const forgetPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
   const user = await User.findOne({ email });
-  console.log(user);
 
   if (user) {
-    const password = generatePassword(8);
-    console.log(password, "password");
-    user.password = password;
-    await user.save();
-    res
-      .status(200)
-      .json({ message: "password updated successfully", success: true });
+    try {
+      const password = generatePassword(8);
+      user.password = password;
+      await user.save();
+      await sendEmail(email, password);
+      res
+        .status(200)
+        .json({ message: "Check your email for new password", success: true });
+    } catch (error) {
+      res.status(400);
+      throw new Error("Something went wrong, Please try again");
+    }
   } else {
     res.status(400);
     throw new Error("Please provide register email address");
