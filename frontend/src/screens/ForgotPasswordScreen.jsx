@@ -22,7 +22,9 @@ const ForgotPasswordScreen = () => {
       navigate(`/login?redirect=${redirect}`);
       toast.success(res?.message);
     } catch (error) {
-      toast.error(error?.message || "Something went wrong, Please try again");
+      toast.error(
+        error.data?.message || "Something went wrong, Please try again"
+      );
     }
   };
 
