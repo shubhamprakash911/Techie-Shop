@@ -31,6 +31,20 @@ This is an e-commerce web application built using the MERN (MongoDB, Express, Re
 - Bcrypt
 - JSON Web Tokens
 
+
+```
+Sample User Logins
+
+admin@email.com (Admin)
+123456
+
+john@email.com (Customer)
+123456
+
+jane@email.com (Customer)
+123456
+```
+
 ## To make Paypal payment use below credentials
 - Email:- sb-keuds26652511@personal.example.com
 - Password:- W!3r_5pI
